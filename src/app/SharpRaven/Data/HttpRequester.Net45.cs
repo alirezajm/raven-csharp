@@ -30,7 +30,7 @@
 
 using System.IO;
 using System.Net;
-#if (!net35)
+#if (!NET35)
 using System.Threading.Tasks;
 #endif
 
@@ -38,11 +38,11 @@ using Newtonsoft.Json;
 
 using SharpRaven.Utilities;
 
-#if !(net40) && !(net35)
+#if !NET40 && !NET35
 
 namespace SharpRaven.Data
 {
-    public partial class Requester
+    public partial class HttpRequester
     {
         /// <summary>
         /// Executes the <c>async</c> HTTP request to Sentry.
@@ -54,7 +54,7 @@ namespace SharpRaven.Data
         {
             using (var s = await this.webRequest.GetRequestStreamAsync())
             {
-                if (this.Client.Compression)
+                if (this.useCompression)
                     await GzipUtil.WriteAsync(this.data.Scrubbed, s);
                 else
                 {

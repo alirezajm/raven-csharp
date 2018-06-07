@@ -30,7 +30,7 @@
 
 using System;
 using System.Collections.Generic;
-#if (!net35)
+#if (!NET35)
 using System.Threading.Tasks;
 #endif
 
@@ -46,13 +46,13 @@ namespace SharpRaven
     {
         /// <summary>
         /// Gets or sets the <see cref="Action"/> to execute to manipulate or extract data from
-        /// the <see cref="Requester"/> object before it is used in the <see cref="RavenClient.Send"/> method.
+        /// the <see cref="IRequester"/> object before it is used in the <see cref="RavenClient.Send"/> method.
         /// </summary>
         /// <value>
         /// The <see cref="Action"/> to execute to manipulate or extract data from the
-        /// <see cref="Requester"/> object before it is used in the <see cref="RavenClient.Send"/> method.
+        /// <see cref="IRequester"/> object before it is used in the <see cref="RavenClient.Send"/> method.
         /// </value>
-        Func<Requester, Requester> BeforeSend { get; set; }
+        Func<IRequester, IRequester> BeforeSend { get; set; }
 
         /// <summary>
         /// Enable Gzip Compression?
@@ -167,7 +167,7 @@ namespace SharpRaven
         void RestartTrails();
 
 
-        #if (!net40) && !(net35)
+        #if (!NET40) && !NET35
         /// <summary>Captures the event.</summary>
         /// <param name="event">The event to capture.</param>
         /// <returns>

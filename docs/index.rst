@@ -10,12 +10,6 @@
     C#
     ==
 
-.. sentry:support-warning::
-
-    The C# SDK is maintained and supported by the Sentry
-    community.  Learn more about the project on `GitHub
-    <https://github.com/getsentry/raven-csharp>`__.
-
 Raven is the C# client for Sentry. Raven relies on the most popular
 logging libraries to capture and convert logs before sending details to a
 Sentry instance.
@@ -30,7 +24,7 @@ Instantiate the client with your DSN:
 
 .. sourcecode:: csharp
 
-    var ravenClient = new RavenClient("___DSN___");
+    var ravenClient = new RavenClient("___PUBLIC_DSN___");
 
 Capturing Exceptions
 --------------------
@@ -106,7 +100,7 @@ The only thing you have to do is provide a DSN, either by registering an instanc
 
     protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
     {
-        container.Register(new Dsn("http://public:secret@example.com/project-id"));
+        container.Register(new Dsn("___PUBLIC_DSN___"));
     }
 
 or through configuration:
@@ -118,7 +112,7 @@ or through configuration:
         <section name="sharpRaven" type="SharpRaven.Nancy.NancyConfiguration, SharpRaven.Nancy" />
       </configSections>
       <sharpRaven>
-        <dsn value="http://public:secret@example.com/project-id" />
+        <dsn value="___PUBLIC_DSN___" />
       </sharpRaven>
     </configuration>
 
@@ -153,7 +147,8 @@ Sentry supports a concept called `Breadcrumbs <https://docs.sentry.io/learn/brea
             this.ravenClient = ravenClient;
         }
         
-        public IHttpActionResult GetProduct(int id) {
+        public IHttpActionResult GetProduct(int id)
+        {
             ravenClient.AddTrail(new Breadcrumb("example") { Message = "some message...", Level = BreadcrumbLevel.Info } );
             
             var product = products.FirstOrDefault((p) => p.Id == id);
